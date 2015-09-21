@@ -1,5 +1,3 @@
-#Testing Sklearn for practice
-
 import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.neighbors import KNeighborsClassifier
