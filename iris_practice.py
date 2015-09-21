@@ -28,6 +28,13 @@ def create_classifier(X_train, Y_train, X_test):
     prediction = knn.predict(X_test)
     return classifier, prediction
 
+def linear_regression(X_train, X_test, Y_train, Y_test):
+    lin_reg = linear_model.LinearRegression()
+    lin_fit = lin_reg.fit(X_train, Y_train)
+    mean_sq_err = np.mean((lin_reg.predict(X_test)-Y_test)**2)
+    regression_score = lin_reg.score(X_test, Y_test)
+    return lin_fit, mean_sq_err, regression_score
+    
 def logistic_regression(x_train, y_train):
     # fit for sigmoid function (logistic)
     logistic = linear_model.LogisticRegression(C=1e5)
@@ -39,12 +46,13 @@ def main():
     #get unique iris types (classifier)
     np.unique(iris_Y)
     iris_x_train, iris_y_train, iris_x_test, iris_y_test = split_data(iris_X, iris_Y)
-    classifier, prediction = create_classifier(iris_x_train, iris_y_train, iris_x_test)
-     
+    classifier, prediction = create_classifier(iris_x_train, iris_y_train, iris_x_test) 
     #Results
     print prediction
     print iris_y_test
+    iris_lin_fit, err, regression_score = linear_regression(iris_x_train, iris_x_test, iris_y_train, iris_y_test)
     logistic_regression(iris_x_train, iris_y_train)
+    print err, regression_score
 
 if __name__ == "__main__":
     main()
